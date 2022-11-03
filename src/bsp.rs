@@ -5,8 +5,6 @@ use arduino_hal::{
     port::{mode,Pin}
 };
 
-use embedded_hal::digital::v2::{OutputPin};
-
 type PinLed    = Pin<mode::Output, PB5>;
 type UartDuino = Usart0<arduino_hal::DefaultClock>;
 
