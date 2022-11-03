@@ -1,0 +1,13 @@
+{
+    "name": "avr-rs-test",
+    "context": "..",
+    "dockerFile": "Dockerfile",
+
+    "remoteUser": "builder",
+
+    "extensions": [
+        "hbenl.vscode-test-explorer",
+        "Gruntfuggly.todo-tree",
+        "cnshenj.vscode-task-manager"
+    ]
+}
