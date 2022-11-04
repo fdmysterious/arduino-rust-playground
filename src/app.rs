@@ -1,7 +1,9 @@
 use arduino_hal::{
     hal::port::{PB5},
     hal::usart::{Usart0},
-    port::{mode,Pin}
+    port::{mode,Pin},
+
+    hal as atmega_hal
 };
 
 type PinLed    = Pin<mode::Output, PB5>;
@@ -21,13 +23,20 @@ pub struct App {
     status: AppStatus,
 }
 
+const SERIAL_BAUDRATE: u32 = 115200; // bps
+
 impl App {
     // Instanciate app and configure peripherals
     pub fn new(peripherals: arduino_hal::Peripherals) -> Self {
-        let pins    = arduino_hal::pins!(peripherals);
-        let led     = pins.d13.into_output();
+        let pins    = atmega_hal::pins!(peripherals);
 
-        let serial  = arduino_hal::default_serial!(peripherals, pins, 115200);
+        let led     = pins.pb5.into_output();
+        let serial  =  arduino_hal::Usart::new(
+            peripherals.USART0,
+            pins.pd0,
+            pins.pd1.into_output(),
+            arduino_hal::hal::usart::BaudrateArduinoExt::into_baudrate(SERIAL_BAUDRATE),
+        );
 
         Self {
             hw: AppInterfaces {
