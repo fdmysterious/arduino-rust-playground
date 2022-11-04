@@ -2,23 +2,13 @@
 #![no_main]
 
 use panic_halt as _;
-
-use arduino_hal::prelude::*;
-
-mod bsp;
+mod app;
 
 
 ///////////////////////////////////////////////////////////////////
 
 #[arduino_hal::entry]
 fn main() -> ! {
-    let mut bsp = bsp::BoardSupport::take().unwrap();
-
-
-    loop{
-        bsp.led.toggle();
-        arduino_hal::delay_ms(100);
-
-        ufmt::uwriteln!(&mut bsp.serial, "Hello world\r").void_unwrap();
-    }
+    let mut app = app::App::take().unwrap();
+    app.run_forever();
 }
