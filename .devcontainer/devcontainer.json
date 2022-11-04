@@ -4,6 +4,7 @@
     "dockerFile": "Dockerfile",
 
     "remoteUser": "builder",
+    "runArgs": ["--privileged"],
 
     "extensions": [
         "hbenl.vscode-test-explorer",
